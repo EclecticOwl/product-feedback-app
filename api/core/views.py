@@ -1,14 +1,23 @@
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-from core.models import Product, Feedback
+from core.models import Product, Feedback, CustomUser
 from core.serializers import ProductSerializer, FeedbackSerializer
 
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def product_list(request):
 
     if request.method == 'GET':
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.validated_data['owner'] = request.user
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    

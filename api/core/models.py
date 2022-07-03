@@ -3,10 +3,13 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    pass
+
+    def __repr__(self):
+        return self.username
+
 
 class Product(models.Model):
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=100)
 
 cat_choices = (
