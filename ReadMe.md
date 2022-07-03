@@ -4,8 +4,8 @@
 
 This is a project that is heavily inspired from the website frontendmentor.io
 
-Using the project link here: https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6
+The original project link is provided here: https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6
 
-I decided to go down the route of creating the data.json into an API and the frontend will use Vue.
+I decided to use Django for the backend and Vue for the frontend for this project.
 
 - Still in progress currently
