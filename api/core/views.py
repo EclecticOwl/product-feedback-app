@@ -16,7 +16,8 @@ def api_root(request, format=None):
     An API root directory for the list views.
     """
     return Response({
-        'products': reverse('product_list', request=request, format=format)
+        'products': reverse('product_list', request=request, format=format),
+        'feedback': reverse('feedback_list', request=request, format=format)
     })
 
 class ProductList(APIView):
@@ -72,3 +73,22 @@ class ProductDetail(APIView):
         snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class FeedbackList(APIView):
+    """
+    Lists all of the Feedback instances with GET, or can POST a single instance.
+    """
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        products = Feedback.objects.all()
+        serializer = FeedbackSerializer(products, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FeedbackSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -13,7 +13,7 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.title} by :{self.owner}'
+        return f'{self.title} by: {self.owner}'
 
 cat_choices = (
     ('ui', 'UI'),
