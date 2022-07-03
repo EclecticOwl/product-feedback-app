@@ -2,6 +2,41 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-
 class CustomUser(AbstractUser):
     pass
+
+class Product(models.Model):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+
+cat_choices = (
+    ('ui', 'UI'),
+    ('ux', 'UX'),
+    ('en', 'Enhancement'),
+    ('ft', 'Feature'),
+    ('bg', 'Bug'),
+
+)
+status_choices = (
+    ('sg', 'Suggestion'),
+    ('pl', 'Planned'),
+    ('ip', 'In-progress')
+)
+class Feedback(models.Model):
+    product_name = models.ForeignKey(Product, on_delete=models.CASCADE)
+    feedback_owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    category = models.CharField(max_length=20, choices=cat_choices, default='en')
+    upvotes = models.IntegerField()
+    status = models.CharField(max_length=10, choices=status_choices, default='sg')
+    description = models.TextField(max_length=400)
+
+    def __str__(self):
+        return f'{self.feedback_owner} says: \'{self.description}\''
+
+
+
+
+
+
+
