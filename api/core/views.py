@@ -46,13 +46,14 @@ class ProductDetail(APIView):
     """
 
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly,
         ]
 
     def get_object(self, pk):
         try:
-            return Product.objects.get(pk=pk)
+            product = Product.objects.get(pk=pk)
+            self.check_object_permissions(self.request, product)
+            return product
         except Product.DoesNotExist:
             raise Http404
 
@@ -63,7 +64,7 @@ class ProductDetail(APIView):
 
     def put(self, request, pk, format=None):
         product = self.get_object(pk)
-        serializer = ProductSerializer(product, data=request.data)
+        serializer = ProductSerializer(product, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
