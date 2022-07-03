@@ -33,7 +33,7 @@ class Feedback(models.Model):
     feedback_owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=cat_choices, default='en')
-    upvotes = models.IntegerField()
+    upvotes = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=status_choices, default='sg')
     description = models.TextField(max_length=400)
 

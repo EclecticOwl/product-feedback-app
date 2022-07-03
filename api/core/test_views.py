@@ -37,7 +37,6 @@ class ProductListTest(APITestCase):
         product = Product.objects.get(id=1)
         self.assertEqual(product.title, "hello")
 
-
 class ProductDetailTest(APITestCase):
     def setUp(self):
         User.objects.create(username='mike', password='234')
@@ -64,4 +63,30 @@ class ProductDetailTest(APITestCase):
         product = Product.objects.get(pk=1)
         self.assertEqual(product.title, "test")
 
-
+class FeedbackListTest(APITestCase):
+    def setUp(self):
+        User.objects.create(username='mike', password='234')
+        User.objects.create(username='mike2', password='234')
+        self.user = User.objects.get(username='mike')
+        self.user2 = User.objects.get(username='mike2')
+        Product.objects.create(owner=self.user, title='test')
+    
+    def test_details(self):
+        # Test GET request
+        response = self.client.get(reverse('feedback_list'))
+        self.assertEqual(response.status_code, 200)
+        # Test POST request with no authentication
+        response = self.client.post(reverse('feedback_list'), 
+            {'description': 'test', 'title': 'Could use more cats!'})
+        self.assertEqual(response.status_code, 403)
+         # Test POST request not all required fields
+        self.client.force_authenticate(self.user2)
+        response = self.client.post(reverse('feedback_list'), 
+            {'description': 'test'})
+        self.assertEqual(response.status_code, 400)
+        # Test POST request success
+        self.client.force_authenticate(self.user2)
+        response = self.client.post(reverse('feedback_list'), 
+            {'description': 'test', 'title': 'Could use more cats!'})
+        self.assertEqual(response.status_code, 201)
+        
