@@ -13,7 +13,7 @@ from core.permissions import IsOwnerOrReadOnly
 @api_view(['GET'])
 def api_root(request, format=None):
     """
-    An API root directory for the list views.
+    An API root directory for a brief overview of the endpoints.
     """
     return Response({
         'products': reverse('product_list', request=request, format=format),
