@@ -5,10 +5,11 @@ from rest_framework import status, permissions
 
 from core.models import Product, Feedback, CustomUser
 from core.serializers import ProductSerializer, FeedbackSerializer
+from core.permissions import IsOwnerOrReadOnly
 
 class ProductList(APIView):
     """
-    List all Product instances, or POST single instance.
+    Lists all of the Product instances with GET, or can POST a single instance.
     """
 
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -31,7 +32,10 @@ class ProductDetail(APIView):
     GET, PUT, and DELETE instances of Product.
     """
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly,
+        ]
 
     def get_object(self, pk):
         try:

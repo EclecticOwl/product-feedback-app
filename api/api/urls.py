@@ -6,3 +6,8 @@ urlpatterns = [
 
     path('api/', include('core.urls')),
 ]
+
+
+urlpatterns += [
+    path('api-login/', include('rest_framework.urls')),
+]
