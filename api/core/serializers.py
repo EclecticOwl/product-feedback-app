@@ -9,7 +9,6 @@ class ProductUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'email', 'username']
 
 
-
 class ProductSerializer(serializers.ModelSerializer):
     product_owner = ProductUserSerializer(source='owner', read_only=True)
     class Meta:
