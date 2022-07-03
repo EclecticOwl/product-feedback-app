@@ -3,21 +3,21 @@ from rest_framework import serializers
 from .models import Product, Feedback, CustomUser
 
 
-class ProductUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['id', 'first_name', 'last_name', 'email', 'username']
-
 
 class ProductSerializer(serializers.ModelSerializer):
-    product_owner = ProductUserSerializer(source='owner', read_only=True)
+    
+    owner = serializers.ReadOnlyField(source='owner.username')
+    first_name = serializers.ReadOnlyField(source='owner.first_name')
+    last_name = serializers.ReadOnlyField(source='owner.last_name')
+
     class Meta:
         model = Product
-        fields = ['id', 'title', 'owner', 'product_owner']
-        read_only_fields = ['owner']
+        fields = ['id', 'title', 'owner', 'first_name', 'last_name']
+        read_only_fields = ['owner', 'first_name', 'last_name', 'id']
 
       
 class FeedbackSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Feedback
         fields = [

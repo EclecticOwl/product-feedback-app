@@ -18,14 +18,14 @@ class ProductList(APIView):
     def post(self, request, format=None):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class ProductDetail(APIView):
     """
-    GET, PUTT, and DELETE instances of Product
+    GET, PUT, and DELETE instances of Product.
     """
     def get_object(self, pk):
         try:
