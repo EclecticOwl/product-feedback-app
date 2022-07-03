@@ -30,7 +30,7 @@ status_choices = (
 )
 class Feedback(models.Model):
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE)
-    feedback_owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=cat_choices, default='en')
     upvotes = models.IntegerField(default=0)

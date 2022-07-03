@@ -89,4 +89,33 @@ class FeedbackListTest(APITestCase):
         response = self.client.post(reverse('feedback_list'), 
             {'description': 'test', 'title': 'Could use more cats!'})
         self.assertEqual(response.status_code, 201)
-        
+
+class FeedbackDetailTest(APITestCase):
+    def setUp(self):
+        User.objects.create(username='mike', password='234')
+        User.objects.create(username='mike2', password='234')
+        self.user = User.objects.get(username='mike')
+        self.user2 = User.objects.get(username='mike2')
+        Product.objects.create(owner=self.user, title='blaaaaa')
+        Feedback.objects.create(
+            description='test',
+            owner=self.user2,
+            product_name=Product.objects.get(id=1),
+            title='noice',
+            )
+    
+    def test_details(self):
+        # Test detail GET request
+        response = self.client.get(reverse('feedback_detail', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+        # Test PUT request no authentication
+        response = self.client.put(reverse('feedback_detail', kwargs={'pk': 1}), {"title": "test"})
+        self.assertEqual(response.status_code, 403)
+        # Test PUT request incorrect authorization
+        self.client.force_authenticate(self.user)
+        response = self.client.put(reverse('feedback_detail', kwargs={'pk': 1}), {"title": "test"})
+        self.assertEqual(response.status_code, 403)
+        # Test successful PUT request
+        self.client.force_authenticate(self.user2)
+        response = self.client.put(reverse('feedback_detail', kwargs={'pk': 1}), {"title": "test"})
+        self.assertEqual(response.status_code, 200)

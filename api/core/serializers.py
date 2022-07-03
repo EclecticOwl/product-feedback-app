@@ -17,11 +17,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
       
 class FeedbackSerializer(serializers.ModelSerializer):
-    feedback_owner = serializers.ReadOnlyField(source='feedback_owner.username')
+    owner = serializers.ReadOnlyField(source='owner.username')
     product_name = serializers.ReadOnlyField(source='product_name.title')
 
     class Meta:
         model = Feedback
         fields = [
-            'id', 'product_name', 'feedback_owner', 'title', 'category', 'upvotes', 'status', 'description']
+            'id', 'product_name', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
         read_only_fields = ['id', 'owner', 'upvotes']

@@ -90,7 +90,7 @@ class FeedbackList(APIView):
     def post(self, request, format=None):
         serializer = FeedbackSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(feedback_owner=request.user, product_name=Product.objects.get(id=1))
+            serializer.save(owner=request.user, product_name=Product.objects.get(id=1))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,7 +107,9 @@ class FeedbackDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Feedback.objects.get(pk=pk)
+            feedback = Feedback.objects.get(pk=pk)
+            self.check_object_permissions(self.request, feedback)
+            return feedback
         except Feedback.DoesNotExist:
             raise Http404
 
@@ -118,7 +120,7 @@ class FeedbackDetail(APIView):
 
     def put(self, request, pk, format=None):
         feedback = self.get_object(pk)
-        serializer = FeedbackSerializer(feedback, data=request.data)
+        serializer = FeedbackSerializer(feedback, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
