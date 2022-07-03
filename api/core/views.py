@@ -2,10 +2,22 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 
 from core.models import Product, Feedback, CustomUser
 from core.serializers import ProductSerializer, FeedbackSerializer
 from core.permissions import IsOwnerOrReadOnly
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    """
+    An API root directory for the list views.
+    """
+    return Response({
+        'products': reverse('product_list', request=request, format=format)
+    })
 
 class ProductList(APIView):
     """
