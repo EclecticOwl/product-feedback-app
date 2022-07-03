@@ -1,7 +1,7 @@
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 
 from core.models import Product, Feedback, CustomUser
 from core.serializers import ProductSerializer, FeedbackSerializer
@@ -10,6 +10,9 @@ class ProductList(APIView):
     """
     List all Product instances, or POST single instance.
     """
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, format=None):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -27,6 +30,9 @@ class ProductDetail(APIView):
     """
     GET, PUT, and DELETE instances of Product.
     """
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Product.objects.get(pk=pk)
