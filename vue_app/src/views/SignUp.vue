@@ -35,8 +35,8 @@ export default {
             axios
                 .post('/auth/users/', formData)
                 .then(response => {
-                    this.$router.push('/log-in')
                     console.log(response)
+                    this.$router.push('/log-in')
                 })
                 .catch(error => {
                     console.log(error)

@@ -1,7 +1,6 @@
 from pathlib import Path
 from decouple import config
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
@@ -27,9 +26,7 @@ CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8080']
 AUTH_USER_MODEL = 'core.CustomUser'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication',),
 }
 
 MIDDLEWARE = [
