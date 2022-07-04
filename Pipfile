@@ -9,6 +9,8 @@ djangorestframework = "*"
 python-decouple = "*"
 coverage = "*"
 coverage-badge = "*"
+djoser = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
