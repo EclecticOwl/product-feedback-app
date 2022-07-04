@@ -24,7 +24,7 @@ export default createStore({
     removeToken(state) {
       state.token = ''
       state.isAuthenticated = false
-    }
+    },
   },
   actions: {
   },
