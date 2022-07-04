@@ -1,6 +1,8 @@
 ## Product Feedback App
 
-[![Django CI](https://github.com/EclecticOwl/product-feedback-app/actions/workflows/djangoworkflow.yml/badge.svg?branch=develop)](https://github.com/EclecticOwl/product-feedback-app/actions/workflows/djangoworkflow.yml)
+[![Django CI](https://github.com/EclecticOwl/product-feedback-app/actions/workflows/djangoworkflow.yml/badge.svg?branch=main)](https://github.com/EclecticOwl/product-feedback-app/actions/workflows/djangoworkflow.yml)
+![Coverage](./coverage.svg)
+
 
 This is a project that is heavily inspired from the website frontendmentor.io
 

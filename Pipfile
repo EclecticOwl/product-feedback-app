@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 python-decouple = "*"
 coverage = "*"
+coverage-badge = "*"
 
 [dev-packages]
 
