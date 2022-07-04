@@ -28,7 +28,7 @@ class ProductListTest(APITestCase):
         # Test POST request authentication
         request = self.factory.post('api/products/', {"title": "blaaa"})
         response = views.ProductList.as_view()(request)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
         # Success POST
         request = self.factory.post('api/products/', {"title": "hello"})
         force_authenticate(request, user=self.user)
@@ -51,7 +51,7 @@ class ProductDetailTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         # Test PUT request no authentication
         response = self.client.put(reverse('product_detail', kwargs={'pk': 1}), {"title": "test"})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
         # Test PUT request incorrect authorization
         self.client.force_authenticate(self.user2)
         response = self.client.put(reverse('product_detail', kwargs={'pk': 1}), {"title": "test"})
@@ -78,7 +78,7 @@ class FeedbackListTest(APITestCase):
         # Test POST request with no authentication
         response = self.client.post(reverse('feedback_list'), 
             {'description': 'test', 'title': 'Could use more cats!'})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
          # Test POST request not all required fields
         self.client.force_authenticate(self.user2)
         response = self.client.post(reverse('feedback_list'), 
@@ -110,7 +110,7 @@ class FeedbackDetailTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         # Test PUT request no authentication
         response = self.client.put(reverse('feedback_detail', kwargs={'pk': 1}), {"title": "test"})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
         # Test PUT request incorrect authorization
         self.client.force_authenticate(self.user)
         response = self.client.put(reverse('feedback_detail', kwargs={'pk': 1}), {"title": "test"})
