@@ -35,4 +35,5 @@ jobs:
         export SECRET_KEY=${{ secrets.SUPER_VALUE }}
         pipenv run coverage run --omit=*/venv/*,*/migrations/* manage.py test
         pipenv run coverage report
+        rm -rf ../coverage.svg
         pipenv run coverage-badge -o ../coverage.svg
