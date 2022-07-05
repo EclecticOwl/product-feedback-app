@@ -6,7 +6,7 @@
       <li><router-link to="/sign-up">Sign Up</router-link></li>
       <li v-if="!isAnon"><router-link to="/log-in">Log In</router-link></li>
       <li v-if="isAnon"><router-link to="/sign-out">Sign Out</router-link></li>
-      <li><router-link to="/product-list">Products</router-link></li>
+      <li><router-link to="/product">Products</router-link></li>
     </ul>
   </nav>
 </template>
@@ -29,7 +29,7 @@ export default {
   align-items: center
   margin-top: 1em
   margin-right: 10em
-  background-color: hsl(282, 45%, 73%)
+  background-color: #006994
   border-radius: 0 1em 1em 0
   ul 
     display: flex
@@ -43,9 +43,13 @@ export default {
     color: white
     font-size: 1.2
   li:hover
-    background-color: hsl(293, 100%, 18%)
+    background-color: rgba(29,154,253,1)
+    cursor: pointer
   li:last-child:hover
     border-radius: 0 1em 1em 0
-    span
-      font-size: 1.2em
+  span
+    font-weight: bold
+    font-size: 1.5em
+    color:  white
+    -webkit-text-stroke: .25px black
 </style>

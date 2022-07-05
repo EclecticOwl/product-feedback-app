@@ -1,9 +1,14 @@
 <template>
    <div class="main-container">
-    <h2>Product List</h2>
+    <div class="product-sidebar">
+        <div class="product-sidebar-header">
+            <p>Product List</p>
+        </div>
+    </div>
     <div class="product-list-container">
-        <div v-for="item in array" :key="item.id">
-            <p>{{ item.title }}<span> by: {{ item.owner }}</span></p>
+        <div class="product-container" v-for="item in array" :key="item.id">
+            <p class="product-title">{{ item.title }}</p>
+            <p class="product-owner">created by:{{ item.owner }}</p>
         </div>
     </div>
    </div>
@@ -30,18 +35,43 @@ export default {
     }
 }
 </script>
-<style>
-.main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.product-list-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-}
+<style lang="sass">
+.main-container
+    margin: 0 5em
+    margin-top: 5em
+    display: grid
+    align-items: start
+    gap: 3em
+    grid-template-columns: 3fr 8fr
+.product-sidebar
+    .product-sidebar-header
+        height: 75px
+        background: linear-gradient(13deg, rgba(150,28,231,1) 0%, rgba(29,154,253,1) 50%, rgba(140,69,252,1) 100%)
+        display: flex
+        justify-content: center
+        align-items: center
+        color: white
+        font-size: 1.3em
+        border-radius: .5em
+        flex-direction: column
+.product-list-container
+    display: flex
+    flex-direction: column
+    gap: 2em
+.product-container
+    border-radius: .5em
+    padding-left: 4em
+    height: 100px
+    background-color: white
+    display: flex
+    flex-direction: column
+    justify-content: center
+    box-shadow: 1px 1px 5px gray
+
+    .product-title
+        font-size: 1.2em
+    .product-owner
+        color: gray
+        font-size: .9em
 
 </style>

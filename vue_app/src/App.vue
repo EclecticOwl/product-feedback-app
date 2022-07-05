@@ -34,7 +34,7 @@ export default {
 
 body
   line-height: 1.5em
-  background-color: #f8f8ff
+  background-color: #f2f2f2
 
 
 @media (max-width: 701px)
@@ -52,6 +52,10 @@ body
     height: 300px
     width: 100%
     border-radius: 0 1em 1em 0
+
+@media (min-width: 1000px)
+  .form-main
+    width: 600px
 
 .form-main
   background-color: white

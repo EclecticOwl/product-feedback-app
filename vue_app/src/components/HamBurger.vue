@@ -7,7 +7,7 @@
 					<li><router-link to="/sign-up" @click="isActive = !isActive">Register</router-link></li>
 					<li v-if="!isUser"><router-link to="/log-in" @click="isActive = !isActive">Log In</router-link></li>
 					<li v-if="isUser"><router-link to="/sign-out" @click="isActive = !isActive">Log Out</router-link></li>
-					<li><router-link to="/product-list" @click="isActive = !isActive">Products</router-link></li>
+					<li><router-link to="/product" @click="isActive = !isActive">Product List</router-link></li>
 				</ul>
 			</div>
 			<div class="hamburger-box" :class="{ isActive: isActive}">
@@ -34,7 +34,7 @@ export default {
   },
 }
 </script>
-<style lang="sass">
+<style scoped lang="sass">
 .hamburger-box
 	position: fixed
 	z-index: 100
@@ -76,13 +76,11 @@ export default {
 .hamburger-box.isActive
 	background-color: black
 	border: white solid 2px
-.showMenu 
-	transform: translateY(0)
 
 .menu 
 	position: fixed
 	transform: translateY(-100%)
-	transition: transform 0.2s
+	transition: transform 0.4s
 	top: 0
 	left: 0
 	right: 0
@@ -112,5 +110,8 @@ export default {
 			background-color: white
 			padding: .5em 2em
 			border-radius: 1em
+
+.showMenu 
+	transform: translateY(0)
 
 </style>
