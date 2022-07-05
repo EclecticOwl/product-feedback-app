@@ -1,9 +1,16 @@
 <template>
-    <div class="log-in">
-        <h1>Log In</h1>
-        <form @submit.prevent="submitForm">
-            <p>Are you sure you wish to sign out?</p>
-            <button type="submit">Sign Out</button>
+    <div class="form-container">
+        <form @submit.prevent="submitForm" class="form-main">
+            <div>
+                <h1>Log In</h1>
+            </div>
+            <div>
+                <p>Are you sure you wish to sign out?</p>
+            </div>
+            <div class="form-controls">
+                <button @click.prevent="goBack">Go Back</button>
+                <button type="submit">Sign Out</button>
+            </div>
         </form>
     </div>
 </template>
@@ -27,8 +34,14 @@ export default {
             .catch(err => {
               console.log(err)
             })
+        },
+        goBack() {
+            this.$router.push('/')
         }
     }
 }
 
 </script>
+
+<style lang="sass">
+</style>

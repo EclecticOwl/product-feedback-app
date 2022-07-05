@@ -1,12 +1,25 @@
 <template>
-    <div class="sign-up">
-        <h1>Sign up</h1>
-
-        <form @submit.prevent="submitForm">
-            <input type="email" name="username" v-model="username">
-            <input type="email" name="email" v-model="email">
-            <input type="password" name="password" v-model="password">
-            <button type="submit">Sign Up</button>
+    <div class="form-container">
+        <form @submit.prevent="submitForm" class="form-main">
+            <div>
+                <h1>Sign up</h1>
+            </div>
+            <div class="form-input">
+                <label for="username">Username:</label>
+                <input type="email" name="username" v-model="username">
+            </div>
+            <div class="form-input">
+                <label for="email">Email:</label>
+                <input type="email" name="email" v-model="email">
+            </div>
+            <div class="form-input">
+                <label for="password">Password:</label>
+                <input type="password" name="password" v-model="password">
+            </div>
+            <div class="form-controls">
+                <button @click.prevent="goBack">Go Back</button>
+                <button type="submit">Sign Up</button>
+            </div>
 
         </form>
     </div>
@@ -41,6 +54,9 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        goBack() {
+            this.$router.push('/')
         }
     }
 }

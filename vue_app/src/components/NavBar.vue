@@ -6,7 +6,7 @@
       <li><router-link to="/sign-up">Sign Up</router-link></li>
       <li v-if="!isAnon"><router-link to="/log-in">Log In</router-link></li>
       <li v-if="isAnon"><router-link to="/sign-out">Sign Out</router-link></li>
-      <li><router-link to="/product-list">Product List</router-link></li>
+      <li><router-link to="/product-list">Products</router-link></li>
     </ul>
   </nav>
 </template>

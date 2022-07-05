@@ -1,5 +1,5 @@
 <template>
-    <div class="log-in">
+    <div class="form-container">
         <form @submit.prevent="submitForm" class="form-main">
             <div>
                 <h1>Log In</h1>
@@ -57,10 +57,4 @@ export default {
 }
 </script>
 <style lang="sass">
-.log-in
-    margin-top: 5em
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
 </style>

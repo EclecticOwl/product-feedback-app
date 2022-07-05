@@ -7,7 +7,7 @@
 					<li><router-link to="/sign-up" @click="isActive = !isActive">Register</router-link></li>
 					<li v-if="!isUser"><router-link to="/log-in" @click="isActive = !isActive">Log In</router-link></li>
 					<li v-if="isUser"><router-link to="/sign-out" @click="isActive = !isActive">Log Out</router-link></li>
-					<li><router-link to="/product-list" @click="isActive = !isActive">Product List</router-link></li>
+					<li><router-link to="/product-list" @click="isActive = !isActive">Products</router-link></li>
 				</ul>
 			</div>
 			<div class="hamburger-box" :class="{ isActive: isActive}">

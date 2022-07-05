@@ -62,10 +62,14 @@ body
   justify-content: center
   gap: 2em
   border-radius: 1em
+  box-shadow: 2px 2px 5px hsl(282, 45%, 73%)
 
 .form-input
+  width: 250px
   display: flex
-  gap: 2em
+  flex-direction: row
+  justify-content: space-between
+  gap: 1em
   input
     padding: 0 .5em
     border-radius: .5em
@@ -82,5 +86,10 @@ body
     height: 30px
     border-radius: 1em
     border: none
-
+.form-container
+    margin-top: 5em
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
 </style>
