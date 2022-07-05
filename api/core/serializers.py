@@ -1,27 +1,32 @@
-from dataclasses import fields
 from rest_framework import serializers
 from .models import Product, Feedback, CustomUser
 
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    
-    owner = serializers.ReadOnlyField(source='owner.username')
-    first_name = serializers.ReadOnlyField(source='owner.first_name')
-    last_name = serializers.ReadOnlyField(source='owner.last_name')
-
-    class Meta:
-        model = Product
-        fields = ['id', 'title', 'owner', 'first_name', 'last_name']
-        read_only_fields = ['owner', 'first_name', 'last_name', 'id']
-
-      
 class FeedbackSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     product_name = serializers.ReadOnlyField(source='product_name.title')
 
     class Meta:
         model = Feedback
-        fields = [
-            'id', 'product_name', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
+        fields = ['id', 'product_name', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
         read_only_fields = ['id', 'owner', 'upvotes']
+        depth = 1
+
+class ProductSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    first_name = serializers.ReadOnlyField(source='owner.first_name')
+    last_name = serializers.ReadOnlyField(source='owner.last_name')
+    feedback = FeedbackSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = ['id', 'title', 'owner', 'first_name', 'last_name', 'feedback']
+        read_only_fields = ['owner', 'first_name', 'last_name', 'id']
+    
+    def create(self, validated_data):
+        feedback_data = validated_data.pop('feedback')
+        product = Product.objects.create(**validated_data)
+        for items in feedback_data:
+            Feedback.objects.create(product_name=product, **items)
+        return product

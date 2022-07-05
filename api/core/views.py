@@ -59,6 +59,7 @@ class ProductDetail(APIView):
 
     def get(self, request, pk, format=None):
         product = self.get_object(pk)
+        
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 

@@ -18,9 +18,9 @@ class Product(models.Model):
 cat_choices = (
     ('ui', 'UI'),
     ('ux', 'UX'),
-    ('en', 'Enhancement'),
-    ('ft', 'Feature'),
-    ('bg', 'Bug'),
+    ('enhancement', 'Enhancement'),
+    ('feature', 'Feature'),
+    ('bug', 'Bug'),
 
 )
 status_choices = (
@@ -29,7 +29,7 @@ status_choices = (
     ('ip', 'In-progress')
 )
 class Feedback(models.Model):
-    product_name = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_name = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feedback')
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=cat_choices, default='en')
@@ -38,7 +38,7 @@ class Feedback(models.Model):
     description = models.TextField(max_length=400)
 
     def __str__(self):
-        return f'{self.feedback_owner} says: \'{self.description}\''
+        return self.title
 
 
 
