@@ -10,7 +10,7 @@
 					<li><router-link to="/product-list" @click="isActive = !isActive">Product List</router-link></li>
 				</ul>
 			</div>
-			<div class="hamburger-box">
+			<div class="hamburger-box" :class="{ isActive: isActive}">
 				<button class="hamburger" :class="{ isActive: isActive }" @click="isActive = !isActive">
 					<div class="bar"></div>
 				</button>
@@ -34,7 +34,7 @@ export default {
   },
 }
 </script>
-<style scoped lang="sass">
+<style lang="sass">
 .hamburger-box
 	position: fixed
 	z-index: 100
@@ -45,6 +45,7 @@ export default {
 	background: white
 	cursor: pointer
 	width:  45px
+	transition: 0.2s
 
 .hamburger 
 	display: block
@@ -62,14 +63,21 @@ export default {
 	height: 3px
 	background-color: black
 	margin: 6px 0px
-	transition: 0.4s
+	transition: transform 0.4s
 
-.hamburger.isActive:before 
+.hamburger.isActive:before
+	background-color: purple
 	transform: rotate(-45deg) translate(-7px, 5px)
-.hamburger.isActive:after 
+.hamburger.isActive:after
+	background-color: purple
 	transform: rotate(45deg) translate(-7px, -7px)
 .hamburger.isActive .bar 
 	opacity: 0
+.hamburger-box.isActive
+	background-color: black
+	border: white solid 2px
+.showMenu 
+	transform: translateY(0)
 
 .menu 
 	position: fixed
@@ -80,31 +88,29 @@ export default {
 	right: 0
 	bottom: 0
 	z-index: 99
-	background: hsl(291,35,15)
+	background: hsl(282, 45%, 73%)
 	color: white
 	list-style: none
 	padding-top: 4rem
-.showMenu 
-	transform: translateY(0)
 
-ul
-	height: 100%
-	display: flex
-	align-items: center
-	justify-content: center
-	flex-direction: column
-	gap: 2em
-	list-style-type: none
+	ul
+		height: 100%
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+		gap: 2em
+		list-style-type: none
 
-	a
-		color: white
-		text-decoration: none
-		font-size: 1.5em
-	
-	a:hover
-		color: hsl(291,35,15)
-		background-color: white
-		padding: .5em 2em
-		border-radius: 1em
+		a
+			color: white
+			text-decoration: none
+			font-size: 1.5em
+		
+		a:hover
+			color: hsl(291,35,15)
+			background-color: white
+			padding: .5em 2em
+			border-radius: 1em
 
 </style>

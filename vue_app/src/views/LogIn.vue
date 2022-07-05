@@ -1,10 +1,21 @@
 <template>
     <div class="log-in">
-        <h1>Log In</h1>
-        <form @submit.prevent="submitForm">
-            <input type="email" name="username" v-model="username">
-            <input type="password" name="password" v-model="password">
-            <button type="submit">Sign In</button>
+        <form @submit.prevent="submitForm" class="form-main">
+            <div>
+                <h1>Log In</h1>
+            </div>
+            <div class="form-input">
+                <label for="username">Username:</label>
+                <input class="input-color" type="email" name="username" v-model="username">
+            </div>
+            <div class="form-input">
+                <label for="password">Password:</label>
+                <input class="input-color" type="password" name="password" v-model="password">
+            </div>
+            <div class="form-controls">
+                <button @click.prevent="goBack">Go Back</button>
+                <button type="submit">Sign In</button>
+            </div>
         </form>
     </div>
 </template>
@@ -38,7 +49,18 @@ export default {
                 .catch(err => {
                     console.log(err)
                 })
+        },
+        goBack() {
+            this.$router.push('/')
         }
     }
 }
 </script>
+<style lang="sass">
+.log-in
+    margin-top: 5em
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+</style>

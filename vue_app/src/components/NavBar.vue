@@ -1,5 +1,6 @@
 <template>
-    <nav>
+  <nav class="navbar">
+    <span>Product Review App</span>
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/sign-up">Sign Up</router-link></li>
@@ -20,13 +21,31 @@ export default {
   }
 }
 </script>
-<style>
-ul {
-  display: flex;
-  gap: 1em;
-  list-style-type: none;
-}
-a {
-  text-decoration: none;
-}
+<style lang="sass">
+.navbar
+  padding-left: 1em
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 1em
+  margin-right: 10em
+  background-color: hsl(282, 45%, 73%)
+  border-radius: 0 1em 1em 0
+  ul 
+    display: flex
+    justify-content: end
+    list-style-type: none
+  li
+    padding: .5em 1em
+  a 
+    max-height: 100%
+    text-decoration: none
+    color: white
+    font-size: 1.2
+  li:hover
+    background-color: hsl(293, 100%, 18%)
+  li:last-child:hover
+    border-radius: 0 1em 1em 0
+    span
+      font-size: 1.2em
 </style>
