@@ -30,7 +30,7 @@ class ProductListTest(APITestCase):
         response = views.ProductList.as_view()(request)
         self.assertEqual(response.status_code, 401)
         # Success POST
-        request = self.factory.post('api/products/', {"title": "hello"})
+        request = self.factory.post('api/products/', {"title": "hello", })
         force_authenticate(request, user=self.user)
         response = views.ProductList.as_view()(request)
         self.assertEqual(response.status_code, 201)

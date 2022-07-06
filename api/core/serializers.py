@@ -17,16 +17,11 @@ class ProductSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     first_name = serializers.ReadOnlyField(source='owner.first_name')
     last_name = serializers.ReadOnlyField(source='owner.last_name')
-    feedback = FeedbackSerializer(many=True)
+    feedback = FeedbackSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
         fields = ['id', 'title', 'owner', 'first_name', 'last_name', 'feedback']
-        read_only_fields = ['owner', 'first_name', 'last_name', 'id']
+        read_only_fields = ['owner', 'first_name', 'last_name', 'id', 'feedback']
     
-    def create(self, validated_data):
-        feedback_data = validated_data.pop('feedback')
-        product = Product.objects.create(**validated_data)
-        for items in feedback_data:
-            Feedback.objects.create(product_name=product, **items)
-        return product
+   
