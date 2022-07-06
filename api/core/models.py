@@ -38,7 +38,7 @@ class Feedback(models.Model):
     description = models.TextField(max_length=400)
 
     def __str__(self):
-        return f'{self.feedback_owner} says: \'{self.description}\''
+        return f'{self.owner} says: \'{self.description}\''
 
 
 
