@@ -37,6 +37,9 @@ class Feedback(models.Model):
     status = models.CharField(max_length=12, choices=status_choices, default='sg')
     description = models.TextField(max_length=400)
 
+    class Meta:
+        unique_together = ('product_id', 'upvotes')
+
     def __str__(self):
         return self.title
 

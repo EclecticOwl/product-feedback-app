@@ -132,3 +132,4 @@ class FeedbackDetail(APIView):
         feedback = self.get_object(pk)
         feedback.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
