@@ -45,7 +45,7 @@
         </div>
         <div class="feedback-item" v-for="(item, index) in feedback" :key="index">
             <div class="feedback-upvotes">
-                <div>
+                <div :id="item.id" @click="upvoter">
                     <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 6l4-4 4 4" stroke="#4661E6" stroke-width="2" fill="none" fill-rule="evenodd"/></svg>
                 {{item.upvotes}}
@@ -102,7 +102,8 @@ export default {
             this.description = null
             this.showFeedbackForm()
             this.getData()
-        }, getData() {
+        }, 
+        getData() {
             axios
                 .get('/api/products/' + this.$route.params.id )
                 .then(response =>  {
@@ -118,7 +119,21 @@ export default {
                 .catch(err => {
                     console.log(err)
                 })
+        },
+        upvoter(e) {
+            const token = localStorage.getItem('token')
+            let number = parseInt(e.target.innerText) + 1
+            
+            const formData = {
+                upvotes: number
+            }
+            axios
+                .put('/api/feedback/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
+                .catch(err => {
+                    console.log(err)
+                })
         }
+        
      },
 }
 </script>
