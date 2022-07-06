@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
 from core.models import Product, Feedback, CustomUser
-from core.serializers import ProductSerializer, FeedbackSerializer
+from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotes
 from core.permissions import IsOwnerOrReadOnly
 
 
@@ -147,15 +147,10 @@ class FeedbackUpvotes(APIView):
             return feedback
         except Feedback.DoesNotExist:
             raise Http404
-
-    def get(self, request, format=None):
-        products = Feedback.objects.all()
-        serializer = FeedbackSerializer(products, many=True)
-        return Response(serializer.data)
         
     def put(self, request, pk, format=None):
         feedback = self.get_object(pk)
-        serializer = FeedbackSerializer(feedback, data=request.data, partial=True)
+        serializer = FeedbackUpvotes(feedback, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
