@@ -70,6 +70,7 @@ class FeedbackListTest(APITestCase):
         self.user = User.objects.get(username='mike')
         self.user2 = User.objects.get(username='mike2')
         Product.objects.create(owner=self.user, title='test')
+        self.product_id = Product.objects.get(id=1)
     
     def test_details(self):
         # Test GET request
@@ -87,7 +88,7 @@ class FeedbackListTest(APITestCase):
         # Test POST request success
         self.client.force_authenticate(self.user2)
         response = self.client.post(reverse('feedback_list'), 
-            {'description': 'test', 'title': 'Could use more cats!'})
+            {'description': 'test', 'title': 'Could use more cats!', 'product_id': 1})
         self.assertEqual(response.status_code, 201)
 
 class FeedbackDetailTest(APITestCase):
@@ -100,7 +101,7 @@ class FeedbackDetailTest(APITestCase):
         Feedback.objects.create(
             description='test',
             owner=self.user2,
-            product_name=Product.objects.get(id=1),
+            product_id=Product.objects.get(id=1),
             title='noice',
             )
     
