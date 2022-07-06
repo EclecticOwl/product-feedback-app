@@ -12,6 +12,9 @@ urlpatterns = [
 
     path('feedback/', views.FeedbackList.as_view(), name='feedback_list'),
     path('feedback/<int:pk>/', views.FeedbackDetail.as_view(), name='feedback_detail'),
+
+
+    path('upvotes/<int:pk>/', views.FeedbackUpvotes.as_view(), name='feedback_upvotes'),
 ]
 
 

@@ -41,7 +41,7 @@ class Feedback(models.Model):
         unique_together = ('product_id', 'upvotes')
 
     def __str__(self):
-        return self.title
+        return self.description
 
 
 

@@ -19,8 +19,14 @@ class ProductSerializer(serializers.ModelSerializer):
     feedback = FeedbackSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Product
-        fields = ['id', 'title', 'owner', 'first_name', 'last_name', 'feedback']
-        read_only_fields = ['owner', 'first_name', 'last_name', 'id', 'feedback']
-    
-   
+        model = Feedback
+        fields = [
+            'id', 'product_name', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
+        read_only_fields = ['id', 'owner', 'upvotes']
+
+class FeedbackUpvotesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Feedback
+        fields = ['id', 'product_name', 'upvotes', 'owner']
+        read_only_fields = ['id', 'owner']

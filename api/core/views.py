@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
 from core.models import Product, Feedback, CustomUser
-from core.serializers import ProductSerializer, FeedbackSerializer
+from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotesSerializer
 from core.permissions import IsOwnerOrReadOnly
 
 
@@ -133,3 +133,27 @@ class FeedbackDetail(APIView):
         feedback.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class FeedbackUpvotes(APIView):
+    """
+    GET, PUT, and DELETE instances of Feedback.
+    """
+
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        ]
+
+    def get_object(self, pk):
+        try:
+            feedback = Feedback.objects.get(pk=pk)
+            self.check_object_permissions(self.request, feedback)
+            return feedback
+        except Feedback.DoesNotExist:
+            raise Http404
+        
+    def put(self, request, pk, format=None):
+        feedback = self.get_object(pk)
+        serializer = FeedbackUpvotesSerializer(feedback, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
