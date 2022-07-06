@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
 from core.models import Product, Feedback, CustomUser
-from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotes
+from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotesSerializer
 from core.permissions import IsOwnerOrReadOnly
 
 
@@ -150,7 +150,7 @@ class FeedbackUpvotes(APIView):
         
     def put(self, request, pk, format=None):
         feedback = self.get_object(pk)
-        serializer = FeedbackUpvotes(feedback, data=request.data, partial=True)
+        serializer = FeedbackUpvotesSerializer(feedback, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
