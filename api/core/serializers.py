@@ -5,11 +5,10 @@ from .models import Product, Feedback, CustomUser
 
 class FeedbackSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    product_name = serializers.ReadOnlyField(source='product_name.title')
 
     class Meta:
         model = Feedback
-        fields = ['id', 'product_name', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
+        fields = ['id', 'product_id', 'owner', 'title', 'category', 'upvotes', 'status', 'description']
         read_only_fields = ['id', 'owner', 'upvotes']
         depth = 1
 

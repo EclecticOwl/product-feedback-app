@@ -29,8 +29,9 @@ export default {
   align-items: center
   margin-top: 1em
   margin-right: 10em
-  background-color: #006994
+  background-color: #383E65
   border-radius: 0 1em 1em 0
+  box-shadow: 1px 1px 10px grey
   ul 
     display: flex
     justify-content: end
@@ -43,7 +44,7 @@ export default {
     color: white
     font-size: 1.2
   li:hover
-    background-color: rgba(29,154,253,1)
+    background-color: #9F2DE3
     cursor: pointer
   li:last-child:hover
     border-radius: 0 1em 1em 0

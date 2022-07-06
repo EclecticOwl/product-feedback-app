@@ -45,8 +45,8 @@ export default {
     grid-template-columns: 3fr 8fr
 .product-sidebar
     .product-sidebar-header
-        height: 75px
-        background: linear-gradient(13deg, rgba(150,28,231,1) 0%, rgba(29,154,253,1) 50%, rgba(140,69,252,1) 100%)
+        height: 100px
+        background: linear-gradient(13deg, rgba(150,28,231,1) 0%, #383E65, rgba(140,69,252,1) 100%)
         display: flex
         justify-content: center
         align-items: center
@@ -54,6 +54,7 @@ export default {
         font-size: 1.3em
         border-radius: .5em
         flex-direction: column
+        box-shadow: 1px 1px 4px grey
 .product-list-container
     display: flex
     flex-direction: column

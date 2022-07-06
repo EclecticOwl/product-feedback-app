@@ -29,7 +29,7 @@ status_choices = (
     ('in-progress', 'In-progress')
 )
 class Feedback(models.Model):
-    product_name = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feedback')
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feedback')
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=cat_choices, default='en')

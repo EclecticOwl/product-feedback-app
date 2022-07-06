@@ -86,7 +86,7 @@ export default {
 	right: 0
 	bottom: 0
 	z-index: 99
-	background: hsl(282, 45%, 73%)
+	background: #9F2DE3
 	color: white
 	list-style: none
 	padding-top: 4rem
