@@ -4,7 +4,7 @@
 			<div class="menu" :class="{ showMenu: isActive}">
 				<ul>
 					<li><router-link to="/" @click="isActive = !isActive">Home</router-link></li>
-					<li><router-link to="/sign-up" @click="isActive = !isActive">Register</router-link></li>
+					<li v-if="!isUser"><router-link to="/sign-up" @click="isActive = !isActive">Register</router-link></li>
 					<li v-if="!isUser"><router-link to="/log-in" @click="isActive = !isActive">Log In</router-link></li>
 					<li v-if="isUser"><router-link to="/sign-out" @click="isActive = !isActive">Log Out</router-link></li>
 					<li><router-link to="/product" @click="isActive = !isActive">Product List</router-link></li>

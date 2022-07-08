@@ -30,6 +30,7 @@
                         <textarea v-model="content" name="description" cols="16" rows="2"></textarea>
                     </div>
                     <div class="product-category">
+                        <label for="category">Category:</label>
                         <select name="category" v-model="category">
                             <option value="enhancement">Enhancement</option>
                             <option value="feature">Feature</option>
@@ -59,6 +60,36 @@
             </div>
         </div>
     </div>
+    <div v-else class="feedback-container">
+        <div v-if="showForm">
+            <form class="feedback-form" @submit.prevent="submitFeedback">
+                <div>
+                    <div class="feedback-input">
+                        <label for="title">Title:</label>
+                        <input v-model="title" type="text" name="title">
+                    </div>
+                    <div class="feedback-input">
+                        <label for="description" name="description">Content:</label>
+                        <textarea v-model="content" name="description" cols="16" rows="2"></textarea>
+                    </div>
+                    <div class="product-category">
+                        <label for="category">Category:</label>
+                        <select name="category" v-model="category">
+                            <option value="enhancement">Enhancement</option>
+                            <option value="feature">Feature</option>
+                            <option value="ui">UI</option>
+                            <option value="ux">UX</option>
+                            <option value="bug">Bug</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="feedback-controls">
+                    <button type="submit">Submit comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
   </div>
 </template>
 
@@ -91,7 +122,7 @@ export default {
                 title:  this.title,
                 description: this.content,
                 category: this.category,
-                product_id:  parseInt(this.$route.params.id)
+                product:  parseInt(this.$route.params.id)
             }
             console.log(formData)
             const token = localStorage.getItem('token')
@@ -193,14 +224,6 @@ export default {
     button:hover
         cursor: pointer
     
-    .feedback-form
-        background-color: white
-        padding: 1em
-        display: flex
-        justify-content: space-between
-        box-shadow: 1px 1px 4px grey
-        margin-bottom: 1em
-        border-radius: .5em
     .feedback-input
         display: flex
         justify-content: space-between
@@ -215,7 +238,7 @@ export default {
         padding: .4em
     .product-category
         display: flex
-        justify-content: center
+        justify-content: space-between
         align-items: center
     .feedback-controls
         display: flex
@@ -227,6 +250,18 @@ export default {
         margin-top: .5em
         padding: .5em
         border-radius: .5em 
+.feedback-form
+        background-color: white
+        padding: 1em
+        display: flex
+        justify-content: space-between
+        box-shadow: 1px 1px 4px grey
+        margin-bottom: 1em
+        border-radius: .5em
+@media (max-width: 700px)
+    .feedback-form
+        flex-direction: column
+        gap: 1em
 .feedback-item
     padding: 0 3em
     padding-top: 1em
