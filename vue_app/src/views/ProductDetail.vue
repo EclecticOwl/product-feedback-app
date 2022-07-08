@@ -1,5 +1,5 @@
 <template>
-<div class="notification-container" v-if="isNotification"><p>{{ notification }}</p></div>
+    <div class="notification-container" v-if="isNotification"><p>{{ notification }}</p></div>
   <div class="main-container" v-if="product">
     <div class="product-sidebar">
         <div class="product-sidebar-header">
@@ -72,9 +72,6 @@ export default {
             feedback_length: null,
             showForm: false,
             feedback: null,
-            title: null, 
-            content: null,
-            category: null,
             notification: null,
             isNotification: false,
         }
@@ -137,17 +134,20 @@ export default {
                 .put('/api/upvotes/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
                 .then(
                     this.getData(),
-                    
-                    this.notification = 'You have successfully upvoted!',
-                    this.isNotification = true,
-                    setTimeout(() => this.notification = '', 5000),
-                    setTimeout(() => this.isNotification = false, 5000),
+                    this.notifier('You have successfully upvoted!')
 
                 )
                 .catch(err => {
                     console.log(err)
                 })
         },
+        notifier(text) {
+            this.notification = text
+            this.isNotification = true
+
+            setTimeout(() => this.notification = null, 5000)
+            setTimeout(() => this.isNotification = false, 5000)
+        }
         
      },
 }
@@ -155,18 +155,18 @@ export default {
 
 <style lang="sass">
 .notification-container
-    margin-top: 1em
-    display: flex
-    justify-content: center
-    align-items: center
+  margin-top: 1em
+  display: flex
+  justify-content: center
+  align-items: center
 
-    p
-        height: 30px
-        padding: .5em 1em
-        background-color: limegreen
-        font-size: .8em
-        text-align: center
-        border-radius: 1em
+  p
+    padding: .5em 1em
+    background-color: #383E65
+    font-size: .8em
+    text-align: center
+    border-radius: 1em
+    color: white
 .feedback-container
     display: flex
     flex-direction: column

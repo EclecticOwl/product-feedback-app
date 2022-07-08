@@ -2,7 +2,7 @@
     <div class="form-container">
         <form @submit.prevent="submitForm" class="form-main">
             <div>
-                <h1>Log In</h1>
+                <h1>Sign Out</h1>
             </div>
             <div>
                 <p>Are you sure you wish to sign out?</p>
@@ -44,4 +44,7 @@ export default {
 </script>
 
 <style lang="sass">
+.form-controls
+    button:hover
+        cursor: pointer
 </style>
