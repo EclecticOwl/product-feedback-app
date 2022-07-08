@@ -41,7 +41,6 @@ body
   .main-menu
     display: none
   .form-main
-    height: 300px
     width: 300px
 
 @media (min-width: 700px) 
@@ -49,7 +48,6 @@ body
     display: none
   .form-main
     margin-right: 10em
-    height: 300px
     width: 100%
     border-radius: 0 1em 1em 0
 
@@ -58,6 +56,7 @@ body
     width: 600px
 
 .form-main
+  padding: .5em
   background-color: white
   border: 1px solid black
   display: flex
