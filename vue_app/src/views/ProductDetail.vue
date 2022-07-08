@@ -16,7 +16,7 @@
     <div class="feedback-container" v-if="feedback">
         <div class="feedback-header">
             <p v-if="feedback_length">{{feedback_length}}</p>
-            <button @click="showFeedbackForm">Add Comment</button>
+            <button @click="showFeedbackForm">Add Comment +</button>
         </div>
         <div v-if="showForm">
             <form class="feedback-form" @submit.prevent="submitFeedback">

@@ -44,6 +44,7 @@ export default {
         background-color: #383E65
         padding:  .5em 1em
         border-radius: 1em
+        box-shadow: 1px 1px 4px grey
 
 @media (min-width: 700px)
     .home-container
