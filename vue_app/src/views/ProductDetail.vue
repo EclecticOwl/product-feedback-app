@@ -1,4 +1,5 @@
 <template>
+<div class="notification-container" v-if="isNotification"><p>{{ notification }}</p></div>
   <div class="main-container" v-if="product">
     <div class="product-sidebar">
         <div class="product-sidebar-header">
@@ -74,6 +75,8 @@ export default {
             title: null, 
             content: null,
             category: null,
+            notification: null,
+            isNotification: false,
         }
     },
     created() {
@@ -94,6 +97,9 @@ export default {
             const token = localStorage.getItem('token')
             axios
                 .post('/api/feedback/', formData , 'Authorization:  Token ' , token)
+                .then(
+                    this.notifier('You have successfully submitted your comment!')
+                )
                 .catch(err => {
                     console.log(err)
                 })
@@ -129,16 +135,38 @@ export default {
             }
             axios
                 .put('/api/upvotes/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
+                .then(
+                    this.getData(),
+                    
+                    this.notification = 'You have successfully upvoted!',
+                    this.isNotification = true,
+                    setTimeout(() => this.notification = '', 5000),
+                    setTimeout(() => this.isNotification = false, 5000),
+
+                )
                 .catch(err => {
                     console.log(err)
                 })
-        }
+        },
         
      },
 }
 </script>
 
 <style lang="sass">
+.notification-container
+    margin-top: 1em
+    display: flex
+    justify-content: center
+    align-items: center
+
+    p
+        height: 30px
+        padding: .5em 1em
+        background-color: limegreen
+        font-size: .8em
+        text-align: center
+        border-radius: 1em
 .feedback-container
     display: flex
     flex-direction: column
