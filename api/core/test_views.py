@@ -11,31 +11,15 @@ User = get_user_model()
 
 class ProductListTest(APITestCase):
     def setUp(self):
-        self.factory = APIRequestFactory()
         User.objects.create(username='mike', password='234')
-        self.user = User.objects.get(username='mike')
+        self.user = User.objects.get(id=1)
     
     def test_details(self):
-        # Test GET request
-        request = self.factory.get('api/products/')
-        response = views.ProductList.as_view()(request)
+        response = self.client.get(reverse('product_list'))
         self.assertEqual(response.status_code, 200)
-        # Test POST request required fields
-        request = self.factory.post('api/products/', {})
-        force_authenticate(request, user=self.user)
-        response = views.ProductList.as_view()(request)
-        self.assertEqual(response.status_code, 400)
-        # Test POST request authentication
-        request = self.factory.post('api/products/', {"title": "blaaa"})
-        response = views.ProductList.as_view()(request)
-        self.assertEqual(response.status_code, 401)
-        # Success POST
-        request = self.factory.post('api/products/', {"title": "hello", })
-        force_authenticate(request, user=self.user)
-        response = views.ProductList.as_view()(request)
-        self.assertEqual(response.status_code, 201)
-        product = Product.objects.get(id=1)
-        self.assertEqual(product.title, "hello")
+        self.client.force_authenticate(self.user)
+        response = self.client.post(reverse('product_list'), 
+            {'title': 'Could use more cats!'})
 
 class ProductDetailTest(APITestCase):
     def setUp(self):
@@ -70,7 +54,6 @@ class FeedbackListTest(APITestCase):
         self.user = User.objects.get(username='mike')
         self.user2 = User.objects.get(username='mike2')
         Product.objects.create(owner=self.user, title='test')
-        self.product_id = Product.objects.get(id=1)
     
     def test_details(self):
         # Test GET request
@@ -83,12 +66,12 @@ class FeedbackListTest(APITestCase):
          # Test POST request not all required fields
         self.client.force_authenticate(self.user2)
         response = self.client.post(reverse('feedback_list'), 
-            {'description': 'test'})
+            {'description': 'test', 'product': 1})
         self.assertEqual(response.status_code, 400)
         # Test POST request success
         self.client.force_authenticate(self.user2)
         response = self.client.post(reverse('feedback_list'), 
-            {'description': 'test', 'title': 'Could use more cats!', 'product_id': 1})
+            {'description': 'test', 'title': 'Could use more cats!', 'product': 1})
         self.assertEqual(response.status_code, 201)
 
 class FeedbackDetailTest(APITestCase):
@@ -101,7 +84,7 @@ class FeedbackDetailTest(APITestCase):
         Feedback.objects.create(
             description='test',
             owner=self.user2,
-            product_id=Product.objects.get(id=1),
+            product=Product.objects.get(id=1),
             title='noice',
             )
     

@@ -29,16 +29,13 @@ status_choices = (
     ('in-progress', 'In-progress')
 )
 class Feedback(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feedback')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='feedback')
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=cat_choices, default='en')
     upvotes = models.IntegerField(default=0)
     status = models.CharField(max_length=12, choices=status_choices, default='sg')
     description = models.TextField(max_length=400)
-
-    class Meta:
-        unique_together = ('product_id', 'upvotes')
 
     def __str__(self):
         return self.description

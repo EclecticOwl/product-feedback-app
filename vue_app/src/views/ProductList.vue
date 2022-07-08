@@ -7,7 +7,7 @@
     </div>
     <div class="product-list-container">
         <div class="product-container" v-for="item in array" :key="item.id">
-            <p class="product-title">{{ item.title }}</p>
+            <p class="product-title" @click="this.$router.push({path: '/product/' + item.id})">{{ item.title }}</p>
             <p class="product-owner">created by:{{ item.owner }}</p>
         </div>
     </div>
@@ -32,6 +32,8 @@ export default {
                 .catch(err => {
                     console.log(err)
                 })
+    },
+    method: {
     }
 }
 </script>
@@ -74,5 +76,8 @@ export default {
     .product-owner
         color: gray
         font-size: .9em
+    .product-title:hover
+        text-decoration: underline
+        cursor: pointer
 
 </style>

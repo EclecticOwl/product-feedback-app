@@ -91,8 +91,8 @@ class FeedbackList(APIView):
     def post(self, request, format=None):
         serializer = FeedbackSerializer(data=request.data)
         if serializer.is_valid():
-            product_id = Product.objects.get(id=request.data['product_id'])
-            serializer.save(owner=request.user, product_id=product_id)
+            product = Product.objects.get(id=request.data['product'])
+            serializer.save(owner=request.user, product=product)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

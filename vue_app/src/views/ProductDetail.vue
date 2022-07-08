@@ -13,8 +13,8 @@
         </div>
     </div>
     <div class="feedback-container" v-if="feedback">
-        <div class="feedback-header" v-if="feedback_length">
-            <p>{{feedback_length}}</p>
+        <div class="feedback-header">
+            <p v-if="feedback_length">{{feedback_length}}</p>
             <button @click="showFeedbackForm">Add Comment</button>
         </div>
         <div v-if="showForm">
@@ -128,7 +128,7 @@ export default {
                 upvotes: number
             }
             axios
-                .put('/api/feedback/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
+                .put('/api/upvotes/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
                 .catch(err => {
                     console.log(err)
                 })
