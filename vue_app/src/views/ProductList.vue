@@ -46,6 +46,7 @@ export default {
     gap: 3em
     grid-template-columns: 3fr 8fr
 .product-sidebar
+    letter-spacing: .1em
     .product-sidebar-header
         height: 100px
         background: linear-gradient(13deg, rgba(150,28,231,1) 0%, #383E65, rgba(140,69,252,1) 100%)
@@ -79,5 +80,22 @@ export default {
     .product-title:hover
         text-decoration: underline
         cursor: pointer
+
+@media (max-width: 700px)
+    .main-container
+        grid-template-columns: 1fr
+    .product-sidebar
+        display: flex
+        justify-content: center
+        align-items: center
+    .product-sidebar-header
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+    .product-description
+        display: flex
+        justify-content: center
+        align-items: center
 
 </style>

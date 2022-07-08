@@ -5,7 +5,7 @@ from rest_framework import status, permissions
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
-from core.models import Product, Feedback, CustomUser
+from core.models import Product, Feedback
 from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotesSerializer
 from core.permissions import IsOwnerOrReadOnly
 

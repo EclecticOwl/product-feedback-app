@@ -69,6 +69,9 @@ export default {
     data() {
         return {
             product: null,
+            title: null,
+            content: null,
+            category: null,
             feedback_length: null,
             showForm: false,
             feedback: null,
@@ -254,6 +257,7 @@ export default {
         display: flex
         justify-content: center
         align-items: center
+        cursor: pointer
         div
             display: flex
             gap: .25em
