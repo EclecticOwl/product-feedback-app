@@ -9,6 +9,7 @@ from core.models import Product, Feedback, CustomUser
 from core.serializers import ProductSerializer, FeedbackSerializer, FeedbackUpvotesSerializer
 from core.permissions import IsOwnerOrReadOnly
 
+from random import randint
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -38,7 +39,14 @@ class ProductList(APIView):
             serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+class ProductRandomView(APIView):
+    def get(self, request, format=None):
+        count = Product.objects.count()
+        random_object = Product.objects.all()[randint(0, count - 1)]
+        serializer = ProductSerializer(random_object)
+        return Response(serializer.data)
+
 
 class ProductDetail(APIView):
     """
