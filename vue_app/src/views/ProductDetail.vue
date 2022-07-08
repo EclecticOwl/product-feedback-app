@@ -118,27 +118,31 @@ export default {
             this.showForm = !this.showForm
         },
         submitFeedback() {
-            const formData = {
+            if (!this.isUser) {
+                this.notifier('You need be a registered user to submit a comment!')
+            } else {
+                const formData = {
                 title:  this.title,
                 description: this.content,
                 category: this.category,
                 product:  parseInt(this.$route.params.id)
+                }
+                console.log(formData)
+                const token = localStorage.getItem('token')
+                axios
+                    .post('/api/feedback/', formData , 'Authorization:  Token ' , token)
+                    .then(
+                        this.notifier('You have successfully submitted your comment!')
+                    )
+                    .catch(err => {
+                        console.log(err)
+                    })
+                this.title = ''
+                this.content = ''
+                this.description = null
+                this.showFeedbackForm()
+                this.getData()
             }
-            console.log(formData)
-            const token = localStorage.getItem('token')
-            axios
-                .post('/api/feedback/', formData , 'Authorization:  Token ' , token)
-                .then(
-                    this.notifier('You have successfully submitted your comment!')
-                )
-                .catch(err => {
-                    console.log(err)
-                })
-            this.title = ''
-            this.content = ''
-            this.description = null
-            this.showFeedbackForm()
-            this.getData()
         }, 
         getData() {
             axios
@@ -158,22 +162,26 @@ export default {
                 })
         },
         upvoter(e) {
-            const token = localStorage.getItem('token')
-            let number = parseInt(e.target.innerText) + 1
+            if (!this.isUser) {
+                this.notifier('You need to be a user to upvote!')
+            } else {
+                const token = localStorage.getItem('token')
+                let number = parseInt(e.target.innerText) + 1
             
-            const formData = {
-                upvotes: number
-            }
-            axios
-                .put('/api/upvotes/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
-                .then(
-                    this.getData(),
-                    this.notifier('You have successfully upvoted!')
+                const formData = {
+                    upvotes: number
+                }
+                axios
+                    .put('/api/upvotes/' + e.target.id + '/' , formData , ' Authorization: Token ' , token)
+                    .then(
+                        this.getData(),
+                        this.notifier('You have successfully upvoted!')
 
-                )
-                .catch(err => {
-                    console.log(err)
-                })
+                    )
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
         },
         notifier(text) {
             this.notification = text
@@ -184,6 +192,11 @@ export default {
         }
         
      },
+     computed: {
+        isUser() {
+      return this.$store.state.isAuthenticated
+    }
+     }
 }
 </script>
 

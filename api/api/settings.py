@@ -28,6 +28,9 @@ AUTH_USER_MODEL = 'core.CustomUser'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication',),
 }
+DJOSER = {
+    'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly']
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
